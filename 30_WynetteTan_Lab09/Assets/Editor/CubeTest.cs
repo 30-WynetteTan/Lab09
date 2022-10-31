@@ -10,21 +10,27 @@ namespace Tests
     {
         // A Test behaves as an ordinary method
         [Test]
-        public void DisableOnDeath_EmptyHP_ObjectSetInactive()
+        [TestCase(0)]
+        [TestCase(-29)]
+        public void DisableOnDeath_EmptyHP_ObjectSetInactive(float hp)
         {
-            GameObject testObject = MakeFakeCube(0);
+            GameObject testObject = MakeFakeCube(hp);
 
             Assert.IsFalse(testObject.activeSelf);
         }
 
         [Test]
-        public void DisableOnDeath_HasHP_ObjectRemainsActive()
+        [TestCase(1)]
+        [TestCase(0.6f)]
+        [TestCase(100)]
+        [TestCase(999999)]
+        public void DisableOnDeath_HasHP_ObjectRemainsActive(float hp)
         {
-            GameObject testObject = MakeFakeCube(20);
+            GameObject testObject = MakeFakeCube(hp);
             Assert.IsTrue(testObject.activeSelf);
         }
 
-        private static GameObject MakeFakeCube(int hp)
+        private static GameObject MakeFakeCube(float hp)
         {
             GameObject testObject = new GameObject();
             Cube cubeScript = testObject.AddComponent<Cube>();
