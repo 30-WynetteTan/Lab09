@@ -12,13 +12,26 @@ namespace Tests
         [Test]
         public void DisableOnDeath_EmptyHP_ObjectSetInactive()
         {
+            GameObject testObject = MakeFakeCube(0);
+
+            Assert.IsFalse(testObject.activeSelf);
+        }
+
+        [Test]
+        public void DisableOnDeath_HasHP_ObjectRemainsActive()
+        {
+            GameObject testObject = MakeFakeCube(20);
+            Assert.IsTrue(testObject.activeSelf);
+        }
+
+        private static GameObject MakeFakeCube(int hp)
+        {
             GameObject testObject = new GameObject();
             Cube cubeScript = testObject.AddComponent<Cube>();
 
-            cubeScript.health = 0;
+            cubeScript.health = hp;
             cubeScript.DisableOnDeath();
-
-            Assert.IsFalse(testObject.activeSelf);
+            return testObject;
         }
     }
 }

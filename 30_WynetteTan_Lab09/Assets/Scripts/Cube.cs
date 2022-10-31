@@ -15,7 +15,7 @@ public class Cube : MonoBehaviour
 
     public void DisableOnDeath()
     {
-        if(health < 0)
+        if(health <= 0)
         {
             gameObject.SetActive(false);
         }
